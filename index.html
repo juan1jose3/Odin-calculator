@@ -3,10 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=backspace" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/main.css">
+    <title>My calc</title>
 </head>
 <body>
+    <div class="mainContainer">
+        <h1 class="title">Calc made by Juan</h1>
+        <div class="calcContainer">
+            <div class="glass">
+                <div class="answerPanel">
+                    0000
+                </div>
+
+                <div class="separator">
+                    <hr>
+                </div>
+
+                <div class="buttonPanel">
+                    <div class="buttonRow">
+                        <button class="material-symbols-outlined calcButton">
+                        backspace
+                        </button>
+
+                        <button class="calcButton">C</button>
+                        <button class="calcButton operator">%</button>
+                        <button class="calcButton operator">/</button>
+
+                    </div>
+
+                    <div class="buttonRow">
+                        <button class="calcButton">7</button>
+                        <button class="calcButton">8</button>
+                        <button class="calcButton">9</button>
+                        <button class="calcButton operator">x</button>
+                    </div>
+
+                    <div class="buttonRow">
+                        <button class="calcButton">4</button>
+                        <button class="calcButton">5</button>
+                        <button class="calcButton">6</button>
+                        <button class="calcButton operator">-</button>
+                    </div>
+
+                    <div class="buttonRow">
+                        <button class="calcButton">1</button>
+                        <button class="calcButton">2</button>
+                        <button class="calcButton">3</button>
+                        <button class="calcButton operator">+</button>
+                    </div>
+
+                    <div class="buttonRow">
+                        <button class="calcButton">0</button>
+                        <button class="calcButton">.</button>
+                        <button class="calcButton">.00</button>
+                        <button class="calcButton operator">=</button>
+                    </div>
+
+                </div>
     
+            </div>
+        </div>
+    </div>
 </body>
 
 <script src="js/calcFun.js" defer></script>
