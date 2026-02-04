@@ -1,3 +1,5 @@
+let answerPanel = document.querySelector(".answerPanel");
+
 function add(a,b){
     return a + b;
 }
@@ -47,66 +49,85 @@ function defineOperation(a,symbol,b){
 
 }
 
+
+function verifyParts(parts){
+    for(let i = 0; i<parts.length;i++){
+        if(parts[i] === "-" && Number.isNaN(parts[i+1]) === false) // this is how we check if it's a number
+        {
+            if(Number.isNaN(parts[i-1]) === true){
+                parts[i+1] = parts[i] + parts[i+1];
+                parts.splice(i,1);
+                i--;
+            }
+            
+        }
+    }
+
+}
+
+function evaluateParts(parts){
+    while(parts.length >= 3){
+        let firstNumber = parseInt(parts[0]);
+        let symbol = parts[1];
+        let secondNumber = parseInt(parts[2]);
+                
+                
+        parts.splice(0,3);
+        result = defineOperation(firstNumber,symbol,secondNumber);
+        parts.unshift(result);
+    }
+
+    //console.log(parts);
+    
+    return parts[0];
+    
+
+    
+}
+
+function dispayAnswer(answer){
+    answerPanel.textContent = "";
+    if(answer == "Infinity"){
+        answerPanel.textContent = "Math Error";
+    }else{
+        
+        answerPanel.textContent = answer;
+    }
+    expression = "";
+}
+
 function operate(){
   
     let buttonPanel = document.querySelector(".buttonPanel");
-    let answerPanel = document.querySelector(".answerPanel");
-    
-    
+
     let expression = "";
-    
-    let firstNumber;
-    let symbol;
-    let secondNumber;
+    let parts;
     
     buttonPanel.addEventListener("click", (event) =>{
         let btn = event.target.closest("button");
         if(!btn) return;
         
+        if(!btn.classList.contains("showAns") && !btn.classList.contains("action")){
+            answerPanel.textContent += btn.textContent;
+            expression += btn.textContent;
+
+        }else if(btn.classList.contains("clear")){
+            answerPanel.textContent = "";
+            expression = "";
+            parts.length = 0;
+        }
+
+        parts = expression.split(/(\+|\-|\x|\/|\%)/).filter(Boolean);
+        
+        verifyParts(parts);
         
         
-        answerPanel.textContent += btn.textContent;
-        
-        expression += btn.textContent;
-        
-        let parts = expression.split(/(\+|\-|\x|\/|\%)/).filter(Boolean);
-        
-        if(parts[0] === "-" && parts.length > 1){
-            parts[1] = parts[0] + parts[1];
-            parts.shift();
-            
+        if(btn.classList.contains("showAns")){
+            let result = evaluateParts(parts);
+            dispayAnswer(result);
         }
         
         console.log(parts);
-        if(parts.length >= 3){
-            
-            while(parts.length >= 3){
-                firstNumber = parseInt(parts[0]);
-                symbol = parts[1];
-                secondNumber = parseInt(parts[2]);
-                
-                
-                
-                parts.splice(0,3);
-                result = defineOperation(firstNumber,symbol,secondNumber);
-                parts.unshift(result);
-                
-            }
-            //console.log(parts);
-            answerPanel.textContent = "";
-            
-            answerPanel.textContent = parts[0];
-            
-            
-            parts.shift();
-            expression = "";
-        }
-        
-        
-        
-        
-        
-        
     });
     
 }
