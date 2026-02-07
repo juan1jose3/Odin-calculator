@@ -1,4 +1,6 @@
-let answerPanel = document.querySelector(".answerPanel");
+let operationArea = document.querySelector(".operationArea");
+let wholeExpression = document.querySelector(".wholeExpression");
+let expressionHolder;
 
 function add(a,b){
     return a + b;
@@ -86,14 +88,16 @@ function evaluateParts(parts){
 }
 
 function dispayAnswer(answer){
-    answerPanel.textContent = "";
+    
     if(answer == "Infinity"){
-        answerPanel.textContent = "Math Error";
+        operationArea.textContent = "Math Error";
     }else{
         
-        answerPanel.textContent = answer;
+        operationArea.textContent = answer;
+        wholeExpression.textContent = expressionHolder;
+
     }
-    expression = "";
+  
 }
 
 function operate(){
@@ -108,11 +112,16 @@ function operate(){
         if(!btn) return;
         
         if(!btn.classList.contains("showAns") && !btn.classList.contains("action")){
-            answerPanel.textContent += btn.textContent;
+            
+            operationArea.textContent += btn.textContent;
             expression += btn.textContent;
+            expressionHolder = expression;
+        
+
+
 
         }else if(btn.classList.contains("clear")){
-            answerPanel.textContent = "";
+            operationArea.textContent = "";
             expression = "";
             parts.length = 0;
         }
