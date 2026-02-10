@@ -1,5 +1,5 @@
-let operationArea = document.querySelector(".operationArea");
-let wholeExpression = document.querySelector(".wholeExpression");
+let answerPanel = document.querySelector(".answerPanel");
+
 let expressionHolder;
 
 function add(a,b){
@@ -90,11 +90,10 @@ function evaluateParts(parts){
 function dispayAnswer(answer){
     
     if(answer == "Infinity"){
-        operationArea.textContent = "Math Error";
+        answerPanel.textContent = "Math Error";
     }else{
         
-        operationArea.textContent = answer;
-        wholeExpression.textContent = expressionHolder;
+        answerPanel.textContent = answer;
 
     }
   
@@ -113,7 +112,7 @@ function operate(){
         
         if(!btn.classList.contains("showAns") && !btn.classList.contains("action")){
             
-            operationArea.textContent += btn.textContent;
+            answerPanel.textContent += btn.textContent;
             expression += btn.textContent;
             expressionHolder = expression;
         
@@ -121,7 +120,7 @@ function operate(){
 
 
         }else if(btn.classList.contains("clear")){
-            operationArea.textContent = "";
+            answerPanel.textContent = "";
             expression = "";
             parts.length = 0;
         }
