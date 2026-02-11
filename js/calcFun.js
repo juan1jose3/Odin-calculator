@@ -1,6 +1,5 @@
 let answerPanel = document.querySelector(".answerPanel");
 
-let expressionHolder;
 
 function add(a,b){
     return a + b;
@@ -23,6 +22,10 @@ function modulo(a,b){
     return a % b;
 }
 
+function power(a,b){
+    return a ** b;
+}
+
 
 function defineOperation(a,symbol,b){
     let ans = 0;
@@ -43,6 +46,9 @@ function defineOperation(a,symbol,b){
             break;
         case "%":
             ans = modulo(a,b);
+            break;
+        case "^":
+            ans = power(a,b);
             break;
 
     }
@@ -69,21 +75,18 @@ function verifyParts(parts){
 
 function evaluateParts(parts){
     while(parts.length >= 3){
-        let firstNumber = parseInt(parts[0]);
+        let firstNumber = parseFloat(parts[0]);
         let symbol = parts[1];
-        let secondNumber = parseInt(parts[2]);
+        let secondNumber = parseFloat(parts[2]);
                 
                 
         parts.splice(0,3);
         result = defineOperation(firstNumber,symbol,secondNumber);
         parts.unshift(result);
     }
-
-    //console.log(parts);
     
-    return parts[0];
+    return parts[0].toString();
     
-
     
 }
 
@@ -92,9 +95,8 @@ function dispayAnswer(answer){
     if(answer == "Infinity"){
         answerPanel.textContent = "Math Error";
     }else{
-        
         answerPanel.textContent = answer;
-
+        
     }
   
 }
@@ -114,16 +116,18 @@ function operate(){
             
             answerPanel.textContent += btn.textContent;
             expression += btn.textContent;
-            expressionHolder = expression;
-        
-
-
-
+           
         }else if(btn.classList.contains("clear")){
             answerPanel.textContent = "";
             expression = "";
             parts.length = 0;
+
+        }else if(btn.classList.contains("del")){
+            
+            answerPanel.textContent = answerPanel.textContent.slice(0,-1);
+            expression = expression.slice(0,-1);
         }
+        //console.log(expression);
 
         parts = expression.split(/(\+|\-|\x|\/|\%)/).filter(Boolean);
         
@@ -133,6 +137,8 @@ function operate(){
         if(btn.classList.contains("showAns")){
             let result = evaluateParts(parts);
             dispayAnswer(result);
+            expression = result;
+            
         }
         
         console.log(parts);

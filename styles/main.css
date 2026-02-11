@@ -52,7 +52,6 @@ body{
     align-content: end;
     text-align: end;
     white-space: nowrap;
-    overflow: hidden;
     overflow: auto;
     text-overflow: clip;
     padding-bottom: 6px;
