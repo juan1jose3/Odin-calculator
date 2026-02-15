@@ -172,7 +172,7 @@ function operate(){
             
         }
         
-        console.log(parts);
+        
     });
     
 }
