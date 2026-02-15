@@ -1,4 +1,5 @@
 let answerPanel = document.querySelector(".answerPanel");
+let dot = document.querySelector(".dot");
 
 
 function add(a,b){
@@ -33,14 +34,14 @@ function defineOperation(a,symbol,b){
         case "+":
             ans = add(a,b);
             break;
-        
+            
         case "-":
             ans = subtract(a,b);
             break;
         case "x":
             ans = multiply(a,b);
             break;
-        
+                    
         case "/":
             ans = divide(a,b);
             break;
@@ -50,22 +51,28 @@ function defineOperation(a,symbol,b){
         case "^":
             ans = power(a,b);
             break;
+                                
+        }
 
-    }
-
-    return ans;
+    return parseFloat(ans.toFixed(3));
 
 }
 
+function isOperator(item){
+    return ["+", "-", "x", "/", "%", "^"].includes(item);
+}
 
 function verifyParts(parts){
     for(let i = 0; i<parts.length;i++){
-        if(parts[i] === "-" && Number.isNaN(parts[i+1]) === false) // this is how we check if it's a number
+        if(parts[i] === "-") 
         {
-            if(Number.isNaN(parts[i-1]) === true){
-                parts[i+1] = parts[i] + parts[i+1];
-                parts.splice(i,1);
-                i--;
+            if(parts[i+1] && !isNaN(Number(parts[i+1]))){
+            
+                if(i === 0 || isOperator(parts[i - 1])){
+                    parts[i+1] = parts[i] + parts[i+1];
+                    parts.splice(i,1);
+                    i--;
+                }
             }
             
         }
@@ -101,6 +108,21 @@ function dispayAnswer(answer){
   
 }
 
+
+function scanForDots(expression){
+
+    for(let i = expression.length -1; i>=0; i--){
+        if(isOperator(expression[i])){
+            break;
+        }
+
+        if(expression[i] == "."){
+            return true;
+        }
+    }
+    return false;
+}
+
 function operate(){
   
     let buttonPanel = document.querySelector(".buttonPanel");
@@ -113,9 +135,18 @@ function operate(){
         if(!btn) return;
         
         if(!btn.classList.contains("showAns") && !btn.classList.contains("action")){
-            
+
+
             answerPanel.textContent += btn.textContent;
             expression += btn.textContent;
+       
+            if(scanForDots(expression)){
+                dot.disabled = true;
+            }else{
+                dot.disabled = false;
+            }
+            
+            
            
         }else if(btn.classList.contains("clear")){
             answerPanel.textContent = "";
@@ -129,7 +160,7 @@ function operate(){
         }
         //console.log(expression);
 
-        parts = expression.split(/(\+|\-|\x|\/|\%)/).filter(Boolean);
+        parts = expression.split(/(\+|\-|\x|\/|\%|\^)/).filter(Boolean);
         
         verifyParts(parts);
         

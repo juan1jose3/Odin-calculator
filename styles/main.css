@@ -29,6 +29,8 @@ body{
 }
 
 .glass{
+    position: relative;
+    overflow: hidden;
     background:linear-gradient(135deg,rgba(2,31,32,0.1), rgba(2,31,32,0));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -95,6 +97,7 @@ hr{
 
 
 .buttonPanel{
+    
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -128,4 +131,54 @@ hr{
     transition: all 0.2s ease;
     border-radius: 20px;
 }
+
+
+
+.answerPanel,
+.separator,
+.buttonPanel {
+    position: relative;
+    z-index: 1;
+}
+
+
+
+.glass .liquid::after,
+.glass .liquid::before{
+    content: "";
+    inset: 0;
+    z-index: 0;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top:auto;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+}
+
+.glass .liquid::before{
+    border-radius: 45%;
+    background: rgba(2, 31, 32,0);
+    animation:animate 5s linear infinite;
+}
+
+.glass .liquid::after{
+    border-radius: 40%;
+    background-color:rgba(2, 31, 32,0.2);
+
+    animation: animate 10s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
+}
+
+
 
